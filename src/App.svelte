@@ -70,6 +70,7 @@
   :global(.dark) {
     background-color: #222222;
     color: #ffffff;
+    color-scheme: dark;
   }
   :global(body.dark #footer) {
     background-color: #303030;

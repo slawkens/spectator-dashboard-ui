@@ -221,9 +221,9 @@
     word-break: break-all;
   }
   .aliases {
-    text-overflow: ellipsis;
-    overflow: hidden;
     width: 250px;
+    overflow-y: auto;
+    max-height: 100px;
   }
   .border {
     padding: 1px;
