@@ -202,6 +202,8 @@
     vertical-align: text-top;
     text-align: left;
     white-space: nowrap;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   li {
     margin: 0px;
@@ -213,6 +215,8 @@
   }
   td {
     vertical-align: top;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   sup {
     font-weight: normal;

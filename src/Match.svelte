@@ -10,14 +10,14 @@
 <tr class="divider">
   <td colspan="4" class="nowrap">
     {#if match.tournament}<Icon icon="mdi:tournament" alt="Tournament Match" />
-    {:else if match.lobby}<Icon icon="mdi:view-list-outline" alt="Lobby Match" />
+    {:else if match.lobby_name}<Icon icon="mdi:view-list-outline" alt="Lobby Match" />
     {:else}<Icon icon="mdi:sword-cross" alt="Matchmaking Match" />{/if}
 
     <span class="highlight">
       {match.game_type}
       {#if match.diplomacy !== "Other"}{match.diplomacy}
       {/if}{#if match.diplomacy === "TG" || match.diplomacy === "Other"}{match.team_size}{/if}
-      on {match.map}{#if match.lobby}&nbsp({match.lobby_name}){/if}
+      on {match.map}
     </span>
 
     <span class="ago">

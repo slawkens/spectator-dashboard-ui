@@ -6,8 +6,8 @@
   import Match from "./Match.svelte";
   import Players from "./Players.svelte";
 
-  $: num_matches = Object.entries($matches).length;
-  $: num_players = Object.values($players).length;
+  $: num_matches = Object.values($matches).length;
+  $: num_players = Object.values($players).filter((player) => player.verified).length;
   $: document.body.className = $theme;
 </script>
 
@@ -57,8 +57,7 @@
   and
   <a href="https://github.com/siegeengineers/spectator-dashboard-ui">UI source</a>
   on <Icon icon="mdi:github" /> github. Tournament and team data provided by
-  <a target="_blank" href="https://liquipedia.net/ageofempires/Main_Page">Liquipedia</a>
-  .
+  <a target="_blank" href="https://liquipedia.net/ageofempires/Main_Page">Liquipedia</a>.
 </div>
 
 <style>

@@ -6,6 +6,7 @@
   let ref = Object.values(match.players).filter((p) => p.number === chat.player_id)[0];
 </script>
 
+{#if ref}
 <span>
   {#if match.diplomacy === "TG" || match.diplomacy === "Other"}<b>
       T{ref.team + 1}
@@ -14,3 +15,4 @@
   {ref.name}:
   {chat.message}
 </span>
+{/if}

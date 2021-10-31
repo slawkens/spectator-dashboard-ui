@@ -20,6 +20,8 @@
         <Icon icon="mdi:twitch" />
       {:else if ref.stream_link.includes("douyu")}
         <Icon icon="mdi:shark" />
+      {:else if ref.stream_link.includes("facebook")}
+        <Icon icon="mdi:facebook" />
       {/if}
     {/if}
     <PlayerName {player} />

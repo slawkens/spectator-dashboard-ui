@@ -16,12 +16,13 @@
       instance = tippy(tooltipElem, {
         content: document.querySelector(sel),
         interactive: true,
+        delay: [350, null],
         maxWidth: 700,
         onShow(inst) {
           hideAll({ duration: 0 });
           var timestamp = new Date().getTime();
           inst.popper.querySelectorAll(".refresh").forEach((element) => {
-            element.src = element.getAttribute("base") + "?t=" + timestamp;
+            element.src = element.getAttribute("base");
           });
         },
       });

@@ -1,6 +1,7 @@
 <script>
-  import { players } from "./store.js";
+  import { players, theme } from "./store.js";
   import Icon from "@iconify/svelte";
+  import { Circle, Pulse } from "svelte-loading-spinners";
   import PlayerName from "./PlayerName.svelte";
 
   function sortPlayers(a, b) {
@@ -12,11 +13,11 @@
 
 <table id="players">
   <tr>
-    <th class="nowrap">Rank (Ladder)</th>
+    <th class="nowrap">Rank (1v1)</th>
     <th>Name</th>
     <th>Team</th>
-    <th>Playing</th>
-    <th>Tournament</th>
+    <th>Status</th>
+    <th>Event</th>
     <th>Streaming</th>
   </tr>
   {#each Object.values($players)
@@ -34,17 +35,32 @@
       <td class="nowrap">
         {#if player.team}{player.team}{/if}
       </td>
-      <td class="nowrap">
-        {#if player.playing}
+      <td class="nowrap status">
+        {#if player.status === "playing"}
           <a href={player.spectate_link}>
             <Icon icon="mdi:eye" />
             {player.match_map}
             {#if player.match_diplomacy == "1v1"}
               vs {player.match_vs}
             {:else}
-              TG
+              {player.match_diplomacy}
             {/if}
           </a>
+        {:else if player.status === "queuing"}
+          <Circle size="13" color={$theme === "dark" ? "#fff" : "#000"} unit="px" duration="4s" /> Queuing
+          {#if player.queue_num !== undefined && player.queue_num > 0} w/{player.queue_num}{/if}
+        {:else if player.status === "matched"}
+        <Pulse size="13" color={$theme === "dark" ? "#fff" : "#000"} unit="px" duration="1s" />
+          {#if player.match_map !== undefined}{player.match_map}{/if}
+          {#if player.match_diplomacy === "1v1"}vs {player.match_vs}{:else}{player.match_diplomacy}{/if}
+        {:else if player.status === "lobby"}
+        <a href="{player.lobby_link}">
+          <Icon icon="mdi:view-list-outline" />
+          {#if player.match_map !== undefined}{player.match_map} {/if}{#if player.match_diplomacy === "1v1"}vs {player.match_vs}{:else if player.match_diplomacy !== undefined}{player.match_diplomacy}{/if}</a>
+        {:else if player.status === "private"}
+          <Icon icon="mdi:eye-off" />
+          {#if player.match_map !== undefined}{player.match_map}{/if}
+          {#if player.match_diplomacy === "1v1"}vs {player.match_vs}{:else}{player.match_diplomacy}{/if}
         {/if}
       </td>
       <td class="nowrap">
@@ -59,6 +75,8 @@
               <Icon icon="mdi:twitch" />
             {:else if player.stream_link.includes("douyu")}
               <Icon icon="mdi:shark" />
+            {:else if player.stream_link.includes("facebook")}
+              <Icon icon="mdi:facebook" />
             {/if}
             {player.stream_title}
           </a>{/if}
@@ -70,6 +88,10 @@
 <style>
   .nowrap {
     white-space: nowrap;
+  }
+  :global(.status div) {
+    display: inline-block !important;
+    vertical-align: middle !important;
   }
   th {
     text-align: left;
@@ -97,6 +119,6 @@
     overflow: hidden;
   }
   .streaming {
-    max-width: 400px;
+    max-width: 350px;
   }
 </style>
